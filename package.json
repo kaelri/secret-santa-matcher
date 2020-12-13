@@ -1,0 +1,10 @@
+{
+	"name": "secret-santa-matcher",
+	"version": "2020-12-13",
+	"author": "kaelri@gmail.com",
+	"scripts": {
+		"build": "php run.php build",
+		"test":  "php run.php test",
+		"send":  "php run.php send"
+	}
+}
