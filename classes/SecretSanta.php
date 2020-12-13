@@ -3,7 +3,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-class App {
+class SecretSanta {
 
 	public static $app_path     = '';
 	public static $config       = [];
@@ -36,6 +36,16 @@ class App {
 		}
 
 		echo PHP_EOL . 'Done.' . PHP_EOL;
+
+	}
+
+	public static function load_config() {
+
+		$path = sprintf( '%s/data/config.json', self::$app_path );
+		$json = file_get_contents( $path );
+
+		self::$config = json_decode( $json, true );
+		self::$people = self::$config['people'];
 
 	}
 
@@ -140,6 +150,41 @@ class App {
 		
 	}
 
+	public static function save_matches() {
+
+		$path    = sprintf( '%s/data/matches.json', self::$app_path );
+		$content = json_encode ( self::$people );
+		file_put_contents( $path, $content );
+
+	}
+
+	public static function load_matches() {
+
+		$path    = sprintf( '%s/data/matches.json', self::$app_path );
+		$json    = file_get_contents( $path );
+		self::$people = json_decode( $json, true );
+
+	}
+
+	public static function show_matches() {
+
+		$min_length = 0;
+
+		foreach ( self::$people as $p => $person ) {
+			$min_length = max( strlen($person['name']), $min_length );
+		}
+
+		foreach ( self::$people as $p => $person ) {
+
+			$r         = $person['recipient'];
+			$recipient = self::$people[ $r ];
+
+			echo str_pad( $person['name'], $min_length ) . ' -> ' . $recipient['name'] . PHP_EOL;
+
+		}
+
+	}
+
 	public static function generate_html() {
 
 		foreach ( self::$people as $p => $person ) {
@@ -168,51 +213,6 @@ class App {
 			$html = ob_get_contents(); ob_end_clean();
 
 			self::$people[ $p ][ 'html' ] = $html;
-
-		}
-
-	}
-
-	public static function save_matches() {
-
-		$path    = sprintf( '%s/data/matches.json', self::$app_path );
-		$content = json_encode ( self::$people );
-		file_put_contents( $path, $content );
-
-	}
-
-	public static function load_config() {
-
-		$path = sprintf( '%s/data/people.json', self::$app_path );
-		$json = file_get_contents( $path );
-
-		self::$config = json_decode( $json, true );
-		self::$people = self::$config['people'];
-
-	}
-
-	public static function load_matches() {
-
-		$path    = sprintf( '%s/data/matches.json', self::$app_path );
-		$json    = file_get_contents( $path );
-		self::$people = json_decode( $json, true );
-
-	}
-
-	public static function show_matches() {
-
-		$min_length = 0;
-
-		foreach ( self::$people as $p => $person ) {
-			$min_length = max( strlen($person['name']), $min_length );
-		}
-
-		foreach ( self::$people as $p => $person ) {
-
-			$r         = $person['recipient'];
-			$recipient = self::$people[ $r ];
-
-			echo str_pad( $person['name'], $min_length ) . ' -> ' . $recipient['name'] . PHP_EOL;
 
 		}
 

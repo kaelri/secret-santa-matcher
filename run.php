@@ -14,4 +14,4 @@ spl_autoload_register(function ($class_name) {
 // Composer autoloader for third-party dependencies.
 require_once __DIR__ . '/vendor/autoload.php';
 
-App::run( __DIR__, $argv );
+SecretSanta::run( __DIR__, $argv );
