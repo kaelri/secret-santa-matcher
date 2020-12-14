@@ -4,8 +4,9 @@
 *.doc
 *.docx
 
-/tests
-/data
+/tests/*
+/data/*
+!/data/config-sample.json
 
 # COMPOSER
 /vendor

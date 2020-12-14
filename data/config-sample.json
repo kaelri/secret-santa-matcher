@@ -1,0 +1,28 @@
+{
+	"people": [
+		{
+			"name":    "Ross",
+			"email":   "ross@friends.com",
+			"exclude": [ "Rachel", "Monica" ]
+		},
+		{
+			"name":    "Rachel",
+			"email":   "rachel@friends.com",
+			"include": [ "Monica", "Rachel", "Phoebe" ]
+		},
+		{
+			"name":    "Chandler",
+			"email":   "chandler@friends.com"
+		}
+	],
+	"smtp": {
+		"host":     "smtp.friends.com",
+		"port":      587,
+		"username": "phoebe@friends.com",
+		"password": "uC6oV3pN2kQ3xN3z",
+		"name":     "Secret Santa",
+		"from":     "phoebe@friends.com",
+		"reply":    "phoebe@friends.com",
+		"bcc":      "joey@friends.com"
+	}
+}
